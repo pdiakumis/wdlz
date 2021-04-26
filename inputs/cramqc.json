@@ -1,0 +1,7 @@
+{
+  "CramMetrics.fasta": "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.fasta",
+  "CramMetrics.fastadict": "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.dict",
+  "CramMetrics.fastafai": "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.fasta.fai",
+  "CramMetrics.cram": "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00029.alt_bwamem_GRCh38DH.20181023.Brahui.cram",
+  "CramMetrics.cramindex": "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00029.alt_bwamem_GRCh38DH.20181023.Brahui.cram.crai"
+}
