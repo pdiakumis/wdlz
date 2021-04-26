@@ -30,18 +30,18 @@ task CollectMultipleMetrics {
         mkdir -p "$(dirname ~{prefix})"
         picard -Xmx~{javaXmxMb}M -XX:ParallelGCThreads=1 \
         CollectMultipleMetrics \
-        I=~{cram} \
-        R=~{fasta} \
-        O=~{prefix} \
-        PROGRAM=null \
-        ~{true="PROGRAM=CollectAlignmentSummaryMetrics" false="" collectAlignmentSummaryMetrics} \
-        ~{true="PROGRAM=CollectInsertSizeMetrics" false="" collectInsertSizeMetrics} \
-        ~{true="PROGRAM=QualityScoreDistribution" false="" qualityScoreDistribution} \
-        ~{true="PROGRAM=MeanQualityByCycle" false="" meanQualityByCycle} \
-        ~{true="PROGRAM=CollectBaseDistributionByCycle" false="" collectBaseDistributionByCycle} \
-        ~{true="PROGRAM=CollectGcBiasMetrics" false="" collectGcBiasMetrics} \
-        ~{true="PROGRAM=CollectSequencingArtifactMetrics" false="" collectSequencingArtifactMetrics} \
-        ~{true="PROGRAM=CollectQualityYieldMetrics" false="" collectQualityYieldMetrics}
+        I ~{cram} \
+        R ~{fasta} \
+        O ~{prefix} \
+        PROGRAM null \
+        ~{true="PROGRAM CollectAlignmentSummaryMetrics" false="" collectAlignmentSummaryMetrics} \
+        ~{true="PROGRAM CollectInsertSizeMetrics" false="" collectInsertSizeMetrics} \
+        ~{true="PROGRAM QualityScoreDistribution" false="" qualityScoreDistribution} \
+        ~{true="PROGRAM MeanQualityByCycle" false="" meanQualityByCycle} \
+        ~{true="PROGRAM CollectBaseDistributionByCycle" false="" collectBaseDistributionByCycle} \
+        ~{true="PROGRAM CollectGcBiasMetrics" false="" collectGcBiasMetrics} \
+        ~{true="PROGRAM CollectSequencingArtifactMetrics" false="" collectSequencingArtifactMetrics} \
+        ~{true="PROGRAM CollectQualityYieldMetrics" false="" collectQualityYieldMetrics}
     }
 
     output {
