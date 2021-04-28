@@ -1,7 +1,14 @@
 {
-  "CramMetrics.fasta": "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.fasta",
-  "CramMetrics.fastadict": "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.dict",
-  "CramMetrics.fastafai": "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.fasta.fai",
-  "CramMetrics.cram": "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00029.alt_bwamem_GRCh38DH.20181023.Brahui.cram",
-  "CramMetrics.cramindex": "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00029.alt_bwamem_GRCh38DH.20181023.Brahui.cram.crai"
+  "CrbamMetrics.crbam_files": [
+      "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00092.alt_bwamem_GRCh38DH.20181023.Balochi.cram",
+      "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00099.alt_bwamem_GRCh38DH.20181023.Hazara.cram",
+      "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00259.alt_bwamem_GRCh38DH.20181023.Pathan.cram",
+      "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00298.alt_bwamem_GRCh38DH.20181023.Kalash.cram",
+      "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00490.alt_bwamem_GRCh38DH.20181023.Bougainville.cram",
+      "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00491.alt_bwamem_GRCh38DH.20181023.Bougainville.cram",
+      "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00527.alt_bwamem_GRCh38DH.20181023.French.cram",
+      "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00544.alt_bwamem_GRCh38DH.20181023.PapuanSepik.cram",
+      "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00550.alt_bwamem_GRCh38DH.20181023.PapuanHighlands.cram",
+      "gs://cpg-fewgenomes-test/mcri_pcr_free_validation/NA12878-HIGH.bam"
+  ]
 }

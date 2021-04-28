@@ -46,20 +46,19 @@ task BgzipTabix {
 
 task Flagstat {
     input {
-        File cram
+        File crbam
         String outpath
         String dockerImage = "quay.io/biocontainers/samtools:1.12--h9aed4be_1"
     }
 
     # Runtime attributes
     Float disk_overhead = 10.0
-    Float in_size = size(cram, "GiB")
-    Int vm_disk_size = ceil(in_size + disk_overhead)
+    Int vm_disk_size = ceil(size(crbam, "GiB") + disk_overhead)
 
     command {
         set -e
         mkdir -p "$(dirname ~{outpath})"
-        samtools flagstat -O json ~{cram} > ~{outpath}
+        samtools flagstat ~{crbam} > ~{outpath}
     }
 
     output {
@@ -77,7 +76,7 @@ task Flagstat {
     }
 
     parameter_meta {
-        cram: "The input CRAM file."
+        crbam: "The input CRAM/BAM file."
         outpath: "Path to output flagstat json file."
         dockerImage: "Docker image."
         flagstat: "Path to output flagstat json file."
