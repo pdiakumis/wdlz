@@ -2,8 +2,8 @@ version 1.0
 
 task CollectMultipleMetrics {
     input {
-        File cram
-        File cramindex
+        File crbam
+        File ?crbamindex
         File fasta
         File fastadict
         File fastafai
@@ -20,28 +20,30 @@ task CollectMultipleMetrics {
         Int javaXmxMb = 3072
         String dockerImage = "quay.io/biocontainers/picard:2.23.8--0"
     }
+    Boolean is_bam = basename(crbam, ".bam") + ".bam" == basename(crbam)
+    String crbamindex_path = if is_bam then crbam + ".bai" else crbam + ".crai"
+    File crbamindex_file = select_first([crbamindex, crbamindex_path])
     # Runtime attributes
     Float disk_overhead = 10.0
-    Float in_size = size(cram, "GiB")
-    Int vm_disk_size = ceil(in_size + disk_overhead)
+    Int vm_disk_size = ceil(size(crbam, "GiB") + size(crbamindex_file, "GiB") + disk_overhead)
 
     command {
         set -e
         mkdir -p "$(dirname ~{prefix})"
         picard -Xmx~{javaXmxMb}M -XX:ParallelGCThreads=1 \
         CollectMultipleMetrics \
-        I ~{cram} \
-        R ~{fasta} \
-        O ~{prefix} \
-        PROGRAM null \
-        ~{true="PROGRAM CollectAlignmentSummaryMetrics" false="" collectAlignmentSummaryMetrics} \
-        ~{true="PROGRAM CollectInsertSizeMetrics" false="" collectInsertSizeMetrics} \
-        ~{true="PROGRAM QualityScoreDistribution" false="" qualityScoreDistribution} \
-        ~{true="PROGRAM MeanQualityByCycle" false="" meanQualityByCycle} \
-        ~{true="PROGRAM CollectBaseDistributionByCycle" false="" collectBaseDistributionByCycle} \
-        ~{true="PROGRAM CollectGcBiasMetrics" false="" collectGcBiasMetrics} \
-        ~{true="PROGRAM CollectSequencingArtifactMetrics" false="" collectSequencingArtifactMetrics} \
-        ~{true="PROGRAM CollectQualityYieldMetrics" false="" collectQualityYieldMetrics}
+        -I ~{crbam} \
+        -R ~{fasta} \
+        -O ~{prefix} \
+        -PROGRAM null \
+        ~{true="-PROGRAM CollectAlignmentSummaryMetrics" false="" collectAlignmentSummaryMetrics} \
+        ~{true="-PROGRAM CollectInsertSizeMetrics" false="" collectInsertSizeMetrics} \
+        ~{true="-PROGRAM QualityScoreDistribution" false="" qualityScoreDistribution} \
+        ~{true="-PROGRAM MeanQualityByCycle" false="" meanQualityByCycle} \
+        ~{true="-PROGRAM CollectBaseDistributionByCycle" false="" collectBaseDistributionByCycle} \
+        ~{true="-PROGRAM CollectGcBiasMetrics" false="" collectGcBiasMetrics} \
+        ~{true="-PROGRAM CollectSequencingArtifactMetrics" false="" collectSequencingArtifactMetrics} \
+        ~{true="-PROGRAM CollectQualityYieldMetrics" false="" collectQualityYieldMetrics}
     }
 
     output {
@@ -93,20 +95,20 @@ task CollectMultipleMetrics {
     }
 
     parameter_meta {
-        cram: "The input CRAM file."
-        cramindex: "The index of the input CRAM file."
+        crbam: "The input CRAM/BAM file."
+        crbamindex: "The index of the input CRAM/BAM file."
         fasta: "Reference FASTA file used for read mapping."
         fastadict: "The sequence dictionary for the FASTA file."
         fastafai: "The index for the FASTA file."
         prefix: "The prefix of the output files."
-        collectAlignmentSummaryMetrics: "Equivalent to the `PROGRAM=CollectAlignmentSummaryMetrics` argument."
-        collectInsertSizeMetrics: "Equivalent to the `PROGRAM=CollectInsertSizeMetrics` argument."
-        qualityScoreDistribution: "Equivalent to the `PROGRAM=QualityScoreDistribution` argument."
-        meanQualityByCycle: "Equivalent to the `PROGRAM=MeanQualityByCycle` argument."
-        collectBaseDistributionByCycle: "Equivalent to the `PROGRAM=CollectBaseDistributionByCycle` argument."
-        collectGcBiasMetrics: "Equivalent to the `PROGRAM=CollectGcBiasMetrics` argument."
-        collectSequencingArtifactMetrics: "Equivalent to the `PROGRAM=CollectSequencingArtifactMetrics` argument."
-        collectQualityYieldMetrics: "Equivalent to the `PROGRAM=CollectQualityYieldMetrics` argument."
+        collectAlignmentSummaryMetrics: "Use -PROGRAM CollectAlignmentSummaryMetrics."
+        collectInsertSizeMetrics: "Use -PROGRAM CollectInsertSizeMetrics."
+        qualityScoreDistribution: "Use -PROGRAM QualityScoreDistribution."
+        meanQualityByCycle: "Use -PROGRAM MeanQualityByCycle."
+        collectBaseDistributionByCycle: "Use -PROGRAM CollectBaseDistributionByCycle."
+        collectGcBiasMetrics: "Use -PROGRAM CollectGcBiasMetrics."
+        collectSequencingArtifactMetrics: "Use -PROGRAM CollectSequencingArtifactMetrics."
+        collectQualityYieldMetrics: "Use -PROGRAM CollectQualityYieldMetrics."
         javaXmxMb: "Maximum memory available to the program in megabytes."
         dockerImage: "Docker image."
     }
