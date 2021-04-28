@@ -2,6 +2,7 @@ version 1.0
 
 import "tasks/picard.wdl" as picard
 import "tasks/samtools.wdl" as samtools
+import "tasks/mosdepth.wdl" as mosdepth
 
 workflow CrbamMetrics {
     input {
@@ -33,6 +34,15 @@ workflow CrbamMetrics {
                 outpath = prefix + ".flagstat.txt"
         }
 
+        call mosdepth.Mosdepth as Mosdepth {
+            input:
+                crbam = crbam,
+                prefix = prefix,
+                fasta = fasta,
+                fastadict = fastadict,
+                fastafai = fastafai
+        }
+
         call picard.CollectMultipleMetrics as picardMetrics {
             input:
                 crbam = crbam,
@@ -49,11 +59,5 @@ workflow CrbamMetrics {
                 collectSequencingArtifactMetrics = collectSequencingArtifactMetrics,
                 collectQualityYieldMetrics = collectQualityYieldMetrics,
         }
-
-        #output {
-        #    File flagstat = Flagstat.flagstat
-        #    Array[File] picardMetricsFiles = picardMetrics.allStats
-        #    Array[File] reports = flatten([picardMetricsFiles, [flagstat]])
-        #}
     }
 }
