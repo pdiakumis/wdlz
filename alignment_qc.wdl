@@ -9,10 +9,9 @@ workflow CrbamMetrics {
     input {
         Array[File] crbam_files
         String outdir = "."
-        File fasta = "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.fasta"
-        File fastadict = "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.dict"
-        File fastafai = "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.fasta.fai"
-
+        File fasta
+        File fastadict
+        File fastafai
     }
 
     scatter (crbam in crbam_files) {
