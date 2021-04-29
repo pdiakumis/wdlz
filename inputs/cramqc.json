@@ -10,5 +10,8 @@
       "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00544.alt_bwamem_GRCh38DH.20181023.PapuanSepik.cram",
       "gs://cpg-fewgenomes-main/hgdp_crams/v1/HGDP00550.alt_bwamem_GRCh38DH.20181023.PapuanHighlands.cram",
       "gs://cpg-fewgenomes-test/mcri_pcr_free_validation/NA12878-HIGH.bam"
-  ]
+  ],
+  "CrbamMetrics.fasta": "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.fasta",
+  "CrbamMetrics.fastadict": "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.dict",
+  "CrbamMetrics.fastafai": "gs://cpg-reference/hg38/v0/Homo_sapiens_assembly38.fasta.fai"
 }
