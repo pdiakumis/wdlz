@@ -50,7 +50,7 @@ data %>%
   filter(fragment_length > 0,
          fragment_length < 1500) %>%
   mutate(Sample = case_when(
-    sample %in% c("210420_A00692_0202_ML212023_NA12878-2_MAN-20210322_ILMNDNAPCRFREE", "NA12878-HIGH") ~ "NA12878-PCRFREE",
+    sample %in% c("210420_A00692_0202_ML212023_NA12878-2_MAN-20210322_ILMNDNAPCRFREE", "NA12878-HIGH") ~ "NA12878",
     grepl("TOB152", sample) ~ "TOB",
     grepl("HGDP", sample) ~ "HGDP",
     TRUE ~ sample
@@ -61,7 +61,7 @@ data %>%
   scale_y_continuous(labels = scales::comma, breaks = scales::breaks_pretty(8)) +
   theme_minimal() +
   theme(panel.grid.minor = element_blank()) +
-  facet_wrap(~Sample) +
+  # facet_wrap(~Sample) +
   ggtitle("Megadepth fragment size distribution")
 
 
